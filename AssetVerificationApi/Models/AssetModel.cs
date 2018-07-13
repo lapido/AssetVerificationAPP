@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,13 +15,13 @@ namespace AssetVerificationApi.Models
     {
         [Key]
         public int AssetID { get; set; }
-        public int SiteID { get; set; }
-        public string UniqueIdentifier { get; set; }
+        //public int SiteID { get; set; }
+        //public string UniqueIdentifier { get; set; }
         //Asset Properties
         //public string PropertyOne { get; set; }
         //public string PropertyTwo { get; set; }
         //public string PropertyThree { get; set; }
-
+        public string ImageName { get; set; }
         public int? ParentAssetID { get; set; }
         public int? ChildID { get; set; }
 
