@@ -10,15 +10,12 @@ namespace AssetVerificationApi.Models
         [Key]
         public int FieldDataID { get; set; }
         public int? AssetID { get; set; }
-        //public int? SiteID { get; set; }
+
         public int? ChildID { get; set; }
         public int? ParentAssetID { get; set; }
         public int? UserID { get; set; }
         public Decimal Latitude { get; set; }
         public Decimal Longitude { get; set; }
-
-        //public bool IsVerified { get; set; }
-
         
         [ForeignKey("AssetID")]
         public AssetModel AssetAssetModel { get; set; }
