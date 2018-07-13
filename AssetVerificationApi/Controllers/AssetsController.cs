@@ -42,13 +42,6 @@ namespace AssetVerificationApi.Controllers
             {
                 if (user.HasChangedPassword == 0)
                 {
-                    ////Todo: check if secret answer exist
-
-
-                    //user.HasChangedPassword = 1;
-                    //user.Password = newPassword;
-                    //user.SecretAnswer = secretAnswer;
-
                     return Unauthorized();
                 }
                 else if(user.HasChangedPassword == 1)
@@ -94,31 +87,11 @@ namespace AssetVerificationApi.Controllers
                 //this is the first time of changing password has required by the system
                 if(user.HasChangedPassword == 0)
                 {
-                    //Todo: check if secret answer exist
-
-
                     user.HasChangedPassword = 1;
                     user.Password = newPassword;
                     user.SecretAnswer = secretAnswer;
 
-                    //return Ok(1);
                 }
-
-                ////changing password after the initial required change
-                //else if(user.HasChangedPassword == 1)
-                //{
-                //    //check if secret answer is the same with the one stored in the DB
-                //    if (user.SecretAnswer.Equals(secretAnswer))
-                //    {
-                //        user.Password = newPassword;
-
-                //        //return Ok(1);
-                //    }
-                //    else
-                //    {
-                //        return Ok(2);
-                //    }
-                //}
             }
             else
             {
@@ -175,7 +148,7 @@ namespace AssetVerificationApi.Controllers
                 PropertyValue prop = new PropertyValue()
                 {
                     AssetID = assetModel.AssetID,
-                    //ParentAssetID = ParentAssetID,
+                    ParentAssetID = ParentAssetID,
                     ChildID = ChildID,
                     PropertyID = Int32.Parse(property["PropertyID"].ToString()),
                     Value = property["Value"]["Name"].ToString(),
