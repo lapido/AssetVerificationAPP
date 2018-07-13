@@ -152,7 +152,7 @@ namespace AssetVerificationApi.Controllers
                     ChildID = ChildID,
                     PropertyID = Int32.Parse(property["PropertyID"].ToString()),
                     Value = property["Value"]["Name"].ToString(),
-                    OptionID = Int32.Parse(property["Value"]["OptionID"].ToString()),
+                    //OptionID = Int32.Parse(property["Value"]["OptionID"].ToString()),
                 };
                 context.PropertyValue.Add(prop);
             }
