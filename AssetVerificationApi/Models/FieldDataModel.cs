@@ -19,6 +19,7 @@ namespace AssetVerificationApi.Models
 
         //public bool IsVerified { get; set; }
 
+        
         [ForeignKey("AssetID")]
         public AssetModel AssetAssetModel { get; set; }
 
