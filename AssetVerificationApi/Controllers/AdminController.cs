@@ -13,7 +13,7 @@ namespace AssetVerificationApi.Controllers
         private Context context = new Context();
 
         [HttpGet]
-        [Route("api/admin/getGroups")]
+        [Route("api/admin_dash/getGroups")]
         public IHttpActionResult GetParentAssets()
         {
             var parents = context.ParentAsset.ToList();
@@ -21,7 +21,7 @@ namespace AssetVerificationApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/admin/allAssets")]
+        [Route("api/admin_dash/allAssets")]
         public IHttpActionResult GetAllAssets()
         {
             var assets = (from asset in context.AssetModel
@@ -43,7 +43,7 @@ namespace AssetVerificationApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/admin/getAssetsForGroup")]
+        [Route("api/admin_dash/getAssetsForGroup")]
         public IHttpActionResult GetAssetsForGroup(int groupID)
         {
             var assets_ = (from asset in context.AssetModel
