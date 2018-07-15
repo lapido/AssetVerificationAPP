@@ -13,8 +13,6 @@ namespace AssetVerificationApi.Models
         [Key]
         public int ParentAssetID { get; set; }
         public string Name { get; set; }
-
-        
         public string ImageName { get; set; }
         public ICollection<AssetChild> AssetChild { get; set; }
 
