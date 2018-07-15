@@ -12,7 +12,7 @@ namespace AssetVerificationApi.Context_
     {
         public Context() : base("name=AssetVerificationApiConnectionString")
         {
-            Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
+            Database.SetInitializer<Context>(new DropCreateDatabaseAlways<Context>());
         }
 
         public DbSet<AssetModel> AssetModel { get; set; }
