@@ -20,7 +20,8 @@ namespace AssetVerificationApi.Controllers
             
             var Fake = new Fake
             {
-                Name = "Asset A"
+                Name = "Asset A",
+                City = "Ife"
             };
             context.Fake.Add(Fake);
  
