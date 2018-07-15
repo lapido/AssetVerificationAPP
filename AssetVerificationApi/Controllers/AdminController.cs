@@ -13,7 +13,7 @@ namespace AssetVerificationApi.Controllers
         private Context context = new Context();
 
         [HttpGet]
-        [Route("api/adminP")]
+        [Route("api/admin/getGroups")]
         public IHttpActionResult GetParentAssets()
         {
             var parents = context.ParentAsset.ToList();
