@@ -15,9 +15,5 @@ namespace AssetVerificationApi.Models
         public string Name { get; set; }
         public string ImageName { get; set; }
         public ICollection<AssetChild> AssetChild { get; set; }
-
-        //public ICollection<PropertyModel> Properties { get; set; }
-
-        //public ICollection<OptionModel> Options { get; set; }
     }
 }
