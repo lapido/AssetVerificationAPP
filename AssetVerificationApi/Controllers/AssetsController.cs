@@ -208,7 +208,7 @@ namespace AssetVerificationApi.Controllers
 
 
         [HttpGet]
-        [Route("api/allAssets")]
+        [Route("api/allAssetsLog")]
         public IHttpActionResult GetAllAssetsAdmin()
         {
             var assets = (from asset in context.AssetModel
