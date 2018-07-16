@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AssetVerificationApi.Provider;
+using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.FileSystems;
 
 [assembly: OwinStartup(typeof(AssetVerificationApi.Startup))]
 namespace AssetVerificationApi
@@ -20,8 +22,9 @@ namespace AssetVerificationApi
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/api/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(20),
-                Provider = new SimpleAuthorizationServerProvider()
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                Provider = new SimpleAuthorizationServerProvider(),
+                RefreshTokenProvider = new RefreshTokenProvider()
             };
 
             app.UseOAuthBearerTokens(OAuthOptions);
@@ -36,15 +39,14 @@ namespace AssetVerificationApi
 
         public void Configuration(IAppBuilder app)
         {
-            ////this for self hosting
-            //HttpConfiguration config = new HttpConfiguration();
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
-            //app.UseWebApi(config);
 
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                
+                
+                RequestPath = new PathString($"/assets")
+
+            });
             ConfigureAuth(app);
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
