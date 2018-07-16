@@ -22,7 +22,7 @@ namespace AssetVerificationApi.Controllers
             
             var Fake = new Fake
             {
-                Name = "Asset A"
+                Name = "Asset B"
                 
             };
             context.Fake.Add(Fake);
@@ -45,12 +45,7 @@ namespace AssetVerificationApi.Controllers
             {
                 if (user.HasChangedPassword == 0)
                 {
-                    ////Todo: check if secret answer exist
 
-
-                    //user.HasChangedPassword = 1;
-                    //user.Password = newPassword;
-                    //user.SecretAnswer = secretAnswer;
 
                     return Unauthorized();
                 }
