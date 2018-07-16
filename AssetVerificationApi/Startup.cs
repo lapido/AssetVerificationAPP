@@ -7,8 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AssetVerificationApi.Provider;
-using Microsoft.Owin.StaticFiles;
-using Microsoft.Owin.FileSystems;
 
 [assembly: OwinStartup(typeof(AssetVerificationApi.Startup))]
 namespace AssetVerificationApi
