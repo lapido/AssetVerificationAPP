@@ -107,21 +107,6 @@ namespace AssetVerificationApi.Controllers
                     //return Ok(1);
                 }
 
-                ////changing password after the initial required change
-                //else if(user.HasChangedPassword == 1)
-                //{
-                //    //check if secret answer is the same with the one stored in the DB
-                //    if (user.SecretAnswer.Equals(secretAnswer))
-                //    {
-                //        user.Password = newPassword;
-
-                //        //return Ok(1);
-                //    }
-                //    else
-                //    {
-                //        return Ok(2);
-                //    }
-                //}
             }
             else
             {
