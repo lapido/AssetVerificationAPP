@@ -38,13 +38,6 @@ namespace AssetVerificationApi
         public void Configuration(IAppBuilder app)
         {
 
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                
-                
-                RequestPath = new PathString($"/assets")
-
-            });
             ConfigureAuth(app);
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
