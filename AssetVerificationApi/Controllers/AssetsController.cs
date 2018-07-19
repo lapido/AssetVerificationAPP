@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System;
 using System.Dynamic;
-
+using System.Data.SqlClient;
 
 namespace AssetVerificationApi.Controllers
 {
@@ -22,8 +22,7 @@ namespace AssetVerificationApi.Controllers
             
             var Fake = new Fake
             {
-                Name = "Asset B"
-                
+                Name = "Asset A"
             };
             context.Fake.Add(Fake);
  
@@ -45,7 +44,12 @@ namespace AssetVerificationApi.Controllers
             {
                 if (user.HasChangedPassword == 0)
                 {
+                    ////Todo: check if secret answer exist
 
+
+                    //user.HasChangedPassword = 1;
+                    //user.Password = newPassword;
+                    //user.SecretAnswer = secretAnswer;
 
                     return Unauthorized();
                 }
@@ -111,7 +115,7 @@ namespace AssetVerificationApi.Controllers
             context.Entry(user).State = EntityState.Modified;
             context.SaveChanges();
 
-            return Ok(1);
+            return Ok();
         }
 
         [Authorize]
@@ -142,6 +146,9 @@ namespace AssetVerificationApi.Controllers
                 var username = AssetObj["username"].ToString();
                 //var uniqueIdentifier = AssetObj["UniqueIdentifier"].ToString();
                 var UserID = context.UserModel.Where(x => x.Username == username).FirstOrDefault<UserModel>().UserId;
+
+                //get siteID
+                //var SiteID = context.SiteModel.Where(x => x.Longitude == log && x.Latitude == lat).FirstOrDefault<SiteModel>().SiteID;
 
                 //store in the asset model
                 AssetModel assetModel = new AssetModel()
@@ -191,7 +198,10 @@ namespace AssetVerificationApi.Controllers
             return Ok();
 
         }
-//AdminController endpoints
+
+
+
+        //AdminController endpoints
         [HttpGet]
         [Route("api/getGroups")]
         public IHttpActionResult GetParentAssets()
@@ -277,5 +287,79 @@ namespace AssetVerificationApi.Controllers
             return Ok(AssetsList);
         }
 
+
+
+        [HttpGet]
+        [Route("api/getGroupCounts")]
+        public IHttpActionResult GetGroupCounts()
+        {
+            var assets = context.Database.SqlQuery<CountType>("select ParentAsset.Name as Name, count(Asss.ParentAssetID) as [Count] from ParentAsset inner join AssetVerificationDBO.dbo.Asset as Asss on ParentAsset.ParentAssetID = Asss.ParentAssetID group by ParentAsset.Name; ").ToList();
+            return Ok(assets);
+        }
+
+        [HttpGet]
+        [Route("api/getConditionCount")]
+        public IHttpActionResult GetConditionCount(string GroupName)
+        {
+            var query = context.Database.SqlQuery<ConditionCount>("select distinct(PV.value) as Condition,  count(PV.childID) as [Count], " +
+                "AC.Name as AssetChild from PropertyValue as PV inner  join AssetVerificationDBO.dbo.Property as PO on " +
+                "PV.PropertyID = PO.PropertyID inner join AssetChildren as AC on " +
+                "PV.ChildID = AC.ChildID " +
+                "inner join ParentAsset PS on PV.ParentAssetID = PS.ParentAssetID " +
+                "where PS.Name = @GroupName " +
+                "and PO.Name = 'Condition' group by PV.ChildID, PV.Value, " +
+                "Ac.Name", new SqlParameter("GroupName", GroupName));
+
+            return Ok(query);
+        }
+
+        [HttpGet]
+        [Route("api/getGroupCondition")]
+        public IHttpActionResult GetGroupCondition(string GroupName)
+        {
+                var query = context.Database.SqlQuery<GroupConditionCount>("select distinct(PV.value) as Condition,  " +
+                    "count(PV.Value) as [Count] from PropertyValue as PV inner  join AssetVerificationDBO.dbo.Property as PO " +
+                    "on PV.PropertyID = PO.PropertyID inner join ParentAsset PS " +
+                    "on PV.ParentAssetID = PS.ParentAssetID where PS.Name = @GroupName " +
+                    "and PO.Name = 'Condition' group by PV.Value", new SqlParameter("GroupName", GroupName));
+            return Ok(query);
+        }
+
+        [HttpGet]
+        [Route("api/getChildCount")]
+        public IHttpActionResult GetChildCount(string GroupName)
+        {
+            var query = context.Database.SqlQuery<ChildCount>("select count(ASS.childID) as Count, AC.Name as " +
+                "Name from AssetVerificationDBO.dbo.Asset as ASS  left join AssetChildren as AC on ASS.ChildID = " +
+                "AC.ChildID inner join ParentAsset as PA on PA.ParentAssetID=Ass.ParentAssetID where PA.Name = @GroupName " +
+                "group by ASS.ChildID, AC.Name", new SqlParameter("GroupName", GroupName));
+            return Ok(query);
+        } 
+    }
+
+
+
+    //models
+    public class ChildCount
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
+    }
+    public class GroupConditionCount
+    {
+        public string Condition { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class ConditionCount
+    {
+        public string Condition { get; set; }
+        public int Count { get; set; }
+        public string AssetChild { get; set; }
+    }
+    public class CountType
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
     }
 }
