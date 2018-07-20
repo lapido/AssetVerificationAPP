@@ -153,8 +153,7 @@ namespace AssetVerificationApi.Controllers
                 //store in the asset model
                 AssetModel assetModel = new AssetModel()
                 {
-                    //SiteID = SiteID,
-                    //UniqueIdentifier = uniqueIdentifier,
+   
                     ParentAssetID = ParentAssetID,
                     ChildID = ChildID
                 };
