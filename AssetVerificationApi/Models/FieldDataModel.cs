@@ -29,4 +29,12 @@ namespace AssetVerificationApi.Models
         [ForeignKey("ParentAssetID")]
         public ParentAssetModel ParentAsset { get; set; }
     }
+    
+        [Table("FieldParent")]
+    public class FieldParent
+    {
+        [Key]
+        public int ID { get; set; }
+        public int ParentID {get; set; }   
+    }
 }
