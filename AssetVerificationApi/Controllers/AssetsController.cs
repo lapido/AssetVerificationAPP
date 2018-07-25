@@ -298,7 +298,7 @@ namespace AssetVerificationApi.Controllers
         [Route("api/getGroupCounts")]
         public IHttpActionResult GetGroupCounts()
         {
-            var assets = context.Database.SqlQuery<CountType>("select ParentAsset.Name as Name, count(Asss.ParentAssetID) as [Count] from ParentAsset inner join AssetVerificationDB.dbo.Asset as Asss on ParentAsset.ParentAssetID = Asss.ParentAssetID group by ParentAsset.Name; ").ToList();
+            var assets = context.Database.SqlQuery<CountType>("select count(FP.parentID) as [Count], PA.[Name] as [Name] from FieldParent as FP right join ParentAsset as PA on FP.ParentID = PA.ParentAssetID group by pa.[Name]; ").ToList();
             return Ok(assets);
         }
 
