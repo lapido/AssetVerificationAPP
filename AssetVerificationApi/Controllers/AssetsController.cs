@@ -136,24 +136,30 @@ namespace AssetVerificationApi.Controllers
         [Route("api/postAsset")]
         public IHttpActionResult PostVerify(IEnumerable<JObject> AssetObjs)
         {
+             //dddd
+            var ChildOne = AssetObjs.FirstOrDefault<JObject>();
+            var parentID = Int32.Parse(ChildOne["ParentAssetID"].ToString());
+            FieldParent fieldParent = new FieldParent() {
+                ParentID = parentID
+            };
+
             foreach(var AssetObj in AssetObjs)
             {
                 var ParentAssetID = Int32.Parse(AssetObj["ParentAssetID"].ToString());
                 var ChildID = Int32.Parse(AssetObj["ChildID"].ToString());
-                var lat = Decimal.Parse(AssetObj["latitude"].ToString());
-                var log = Decimal.Parse(AssetObj["longitude"].ToString());
-                //var SiteID = Int32.Parse(AssetObj["SiteID"].ToString());
+                var lat = (Decimal) AssetObj["latitude"];
+                var log = (Decimal) AssetObj["longitude"];
+                
                 var username = AssetObj["username"].ToString();
-                //var uniqueIdentifier = AssetObj["UniqueIdentifier"].ToString();
+                
                 var UserID = context.UserModel.Where(x => x.Username == username).FirstOrDefault<UserModel>().UserId;
 
-                //get siteID
-                //var SiteID = context.SiteModel.Where(x => x.Longitude == log && x.Latitude == lat).FirstOrDefault<SiteModel>().SiteID;
 
                 //store in the asset model
                 AssetModel assetModel = new AssetModel()
                 {
-   
+                    //SiteID = SiteID,
+                    //UniqueIdentifier = uniqueIdentifier,
                     ParentAssetID = ParentAssetID,
                     ChildID = ChildID
                 };
@@ -188,13 +194,13 @@ namespace AssetVerificationApi.Controllers
 
                 context.AssetModel.Add(assetModel);
                 context.FieldDataModel.Add(fieldData);
-
-
-
+                
                 context.SaveChanges();
             }
-            
+            context.FieldParent.Add(fieldParent);
+            context.SaveChanges();
             return Ok();
+
 
         }
 
