@@ -307,7 +307,7 @@ namespace AssetVerificationApi.Controllers
         public IHttpActionResult GetConditionCount(string GroupName)
         {
             var query = context.Database.SqlQuery<ConditionCount>("select distinct(PV.value) as Condition,  count(PV.childID) as [Count], " +
-                "AC.Name as AssetChild from PropertyValue as PV inner  join AssetVerificationDB.dbo.Property as PO on " +
+                "AC.Name as AssetChild from PropertyValue as PV inner  join dbo.Property as PO on " +
                 "PV.PropertyID = PO.PropertyID inner join AssetChildren as AC on " +
                 "PV.ChildID = AC.ChildID " +
                 "inner join ParentAsset PS on PV.ParentAssetID = PS.ParentAssetID " +
@@ -323,7 +323,7 @@ namespace AssetVerificationApi.Controllers
         public IHttpActionResult GetGroupCondition(string GroupName)
         {
                 var query = context.Database.SqlQuery<GroupConditionCount>("select distinct(PV.value) as Condition,  " +
-                    "count(PV.Value) as [Count] from PropertyValue as PV inner  join AssetVerificationDB.dbo.Property as PO " +
+                    "count(PV.Value) as [Count] from PropertyValue as PV inner  join dbo.Property as PO " +
                     "on PV.PropertyID = PO.PropertyID inner join ParentAsset PS " +
                     "on PV.ParentAssetID = PS.ParentAssetID where PS.Name = @GroupName " +
                     "and PO.Name = 'Condition' group by PV.Value", new SqlParameter("GroupName", GroupName));
@@ -335,7 +335,7 @@ namespace AssetVerificationApi.Controllers
         public IHttpActionResult GetChildCount(string GroupName)
         {
             var query = context.Database.SqlQuery<ChildCount>("select count(ASS.childID) as Count, AC.Name as " +
-                "Name from AssetVerificationDB.dbo.Asset as ASS  left join AssetChildren as AC on ASS.ChildID = " +
+                "Name from dbo.Asset as ASS  left join AssetChildren as AC on ASS.ChildID = " +
                 "AC.ChildID inner join ParentAsset as PA on PA.ParentAssetID=Ass.ParentAssetID where PA.Name = @GroupName " +
                 "group by ASS.ChildID, AC.Name", new SqlParameter("GroupName", GroupName));
             return Ok(query);
