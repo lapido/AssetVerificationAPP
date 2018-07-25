@@ -13,5 +13,6 @@ namespace AssetVerificationApi.Models
         [Key]
         public int ID { get; set; }
         public int ParentID {get; set; }
+        
     }
 }
