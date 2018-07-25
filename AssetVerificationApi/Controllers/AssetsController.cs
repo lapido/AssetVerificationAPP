@@ -19,7 +19,6 @@ namespace AssetVerificationApi.Controllers
         [Route("api/Index")]
         public IHttpActionResult Index()
         {
-            
             var Fake = new Fake
             {
                 Name = "Asset A"
