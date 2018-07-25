@@ -27,6 +27,9 @@ namespace AssetVerificationApi.Context_
         public DbSet<Fake> Fake { get; set; }
         public DbSet<FieldParent> FieldParent { get; set; }
 
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SiteModel>().Property(a => a.Latitude).HasPrecision(18, 9);
