@@ -34,5 +34,5 @@ namespace AssetVerificationApi.Context_
             modelBuilder.Entity<FieldDataModel>().Property(a => a.Longitude).HasPrecision(18, 9);
             modelBuilder.Entity<FieldDataModel>().Property(a => a.Longitude).HasPrecision(18, 9);
         }
-    }
+    } 
 }
