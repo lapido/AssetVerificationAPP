@@ -25,6 +25,7 @@ namespace AssetVerificationApi.Context_
         public DbSet<PropertyValue> PropertyValue { get; set; }
         public DbSet<OptionModel> Option { get; set; }
         public DbSet<Fake> Fake { get; set; }
+        public DbSet<FieldParent> FieldParent { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
