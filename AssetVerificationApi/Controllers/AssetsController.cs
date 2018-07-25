@@ -137,11 +137,11 @@ namespace AssetVerificationApi.Controllers
         public IHttpActionResult PostVerify(IEnumerable<JObject> AssetObjs)
         {
              //dddd
-            var ChildOne = AssetObjs.FirstOrDefault<JObject>();
-            var parentID = Int32.Parse(ChildOne["ParentAssetID"].ToString());
-            FieldParent fieldParent = new FieldParent() {
-                ParentID = parentID
-            };
+            //var ChildOne = AssetObjs.FirstOrDefault<JObject>();
+            //var parentID = Int32.Parse(ChildOne["ParentAssetID"].ToString());
+            //FieldParent fieldParent = new FieldParent() {
+            //    ParentID = parentID
+            //};
 
             foreach(var AssetObj in AssetObjs)
             {
@@ -197,8 +197,8 @@ namespace AssetVerificationApi.Controllers
                 
                 context.SaveChanges();
             }
-            context.FieldParent.Add(fieldParent);
-            context.SaveChanges();
+            //context.FieldParent.Add(fieldParent);
+            //context.SaveChanges();
             return Ok();
 
 
