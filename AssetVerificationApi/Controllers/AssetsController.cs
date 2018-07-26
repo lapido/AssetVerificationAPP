@@ -273,12 +273,18 @@ namespace AssetVerificationApi.Controllers
                         var c = context.PropertyValue.Where(x => x.AssetID == asset.AssetID & x.PropertyID == p.PropertyID).FirstOrDefault();
                         if (c != null)
                         {
-
-                            assetObj.Add(p.Name, c.Value);
+                            if (!assetObj.ContainsKey(p.Name))
+                            {
+                                assetObj.Add(p.Name, c.Value);
+                            }
+                                
                         }
                         else
                         {
-                            assetObj.Add(p.Name, "");
+                            if (!assetObj.ContainsKey(p.Name))
+                            {
+                                assetObj.Add(p.Name, "");
+                            }
                         }
 
                     }
