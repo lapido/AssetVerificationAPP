@@ -244,6 +244,7 @@ namespace AssetVerificationApi.Controllers
         [Route("api/getAssetsForGroup")]
         public IHttpActionResult GetAssetsForGroup(int groupID)
         {
+        
             var assets_ = (from asset in context.AssetModel
                            join field in context.FieldDataModel on asset.AssetID equals field.AssetID
                            join property in context.PropertyValue on asset.ChildID equals property.ChildID
@@ -369,6 +370,7 @@ namespace AssetVerificationApi.Controllers
         public int Count { get; set; }
         public string AssetChild { get; set; }
     }
+    
     public class CountType
     {
         public string Name { get; set; }
