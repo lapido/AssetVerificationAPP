@@ -357,6 +357,7 @@ namespace AssetVerificationApi.Controllers
     }
     public class GroupConditionCount
     {
+        
         public string Condition { get; set; }
         public int Count { get; set; }
     }
